@@ -8,7 +8,8 @@ function App() {
   const [formData, setFormData] = useState([]);
 
   const handleFormData = (d) => {
-    setFormData([...formData, d]);
+    const inputValue = { id: Date.now(), value: d }
+    setFormData([...formData, inputValue]);
     console.log(formData)
   };
   return (
@@ -21,29 +22,19 @@ function App() {
           <Top />
         </div>
         <div id="bottom" className="flex">
-          <div className="w-1/4 h-[90vh] border-r-2 border-[#11111122] px-3 py-4">
+          <div id="bottom-left" className="w-1/4 h-[90vh] border-r-2 border-[#11111122] px-3 py-4">
             <CreateNote data={handleFormData}/>
-            {formData.forEach((item) => {
-              <div className="pt-5 px-3 pb-2 border-b-2 border-[#11111122]">
-                <div className="text-xl font-semibold">{item.title}</div>
+            {formData.map((item) => (
+              <div key={item.id} className="pt-5 px-3 pb-2 border-b-2 border-[#11111122]">
+                <div className="text-xl font-semibold">{item.value.title}</div>
                 <div className="flex gap-3 py-2">
-                  {item.tags.forEach(tag => {
-                    {console.log(tag.text)}
-                    <div className="bg-gray-300 px-2 rounded-[7px] text-sm text-center">{tag.text}</div>
-                  })}
-                <div className="text-sm text-gray-600 px-0.5">{item.date}</div>
+                  {item.value.tags.map(tag => (
+                    <div key={tag.id} className="bg-gray-300 px-2 rounded-[7px] text-sm text-center">{tag.text}</div>
+                  ))}
                 </div>
+                <div className="text-sm text-gray-600 px-0.5">{item.value.date}</div>
               </div>
-            })}
-            {/* <div className="pt-5 px-3 pb-2 border-b-2 border-[#11111122]">
-              <div className="text-xl font-semibold">{formData.title}</div>
-              <div className="flex gap-3 py-2">
-                {formData.tags.forEach(tag => {
-                  <div className="bg-gray-300 px-2 rounded-[7px] text-sm text-center">{tag.text}</div>
-                })}
-              </div>
-              <div className="text-sm text-gray-600 px-0.5">{formData.date}</div>
-            </div> */}
+            ))}
           </div>
           <div id="bottom-middle" className="w-1/2 h-[90vh] border-r-2 border-[#11111122]">
             
