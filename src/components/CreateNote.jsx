@@ -39,6 +39,7 @@ const CreateNote = (props) => {
       setInputValue('');
       tagInputRef.current.value = ''
       tagInputRef.current.focus();
+      setIsTyping(false)
     }
   };
 
@@ -56,6 +57,7 @@ const CreateNote = (props) => {
 
   const handleRemoveTag = (id) => {
     tagsList.splice(tagsList.findIndex(i => i.id === id), 1)
+    console.log(tagsList)
   }
 
   return (
@@ -104,7 +106,7 @@ const CreateNote = (props) => {
               </div>
             </div>
             <div id="tags" className="flex flex-wrap w-full h-[30%] mx-2.5 my-5"> 
-              {tagsList.map((item) => (
+              {tagsList && tagsList.map((item) => (
                 <div key={item.id} className="w-fit px-2 py-1.5 flex justify-between items-center bg-gray-300 rounded-md mr-2.5 max-h-fit">
                   <span className="font-semibold">{item.text}</span>
                   <RxCross2 onClick={handleRemoveTag} className="text-xs hover:cursor-pointer"/>
